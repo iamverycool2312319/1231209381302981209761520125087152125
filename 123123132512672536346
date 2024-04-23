@@ -1,0 +1,133 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local Main = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local TextButton = Instance.new("TextButton")
+local TurnOff = Instance.new("TextButton")
+
+--Properties:
+
+Main.Name = "Main"
+Main.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Main.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = Main
+Frame.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+Frame.BackgroundTransparency = 0.100
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.228364289, 0, 0.283018857, 0)
+Frame.Size = UDim2.new(0, 269, 0, 100)
+
+TextBox.Parent = Frame
+TextBox.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.BorderSizePixel = 0
+TextBox.Position = UDim2.new(0.126394048, 0, 0.25, 0)
+TextBox.Size = UDim2.new(0, 200, 0, 50)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.TextSize = 14.000
+
+UICorner.Parent = TextBox
+
+UICorner_2.Parent = Frame
+
+TextButton.Parent = Frame
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.126394048, 0, 0, 0)
+TextButton.Size = UDim2.new(0, 200, 0, 25)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "Press this to activate"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextSize = 14.000
+
+TurnOff.Name = "TurnOff"
+TurnOff.Parent = Frame
+TurnOff.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TurnOff.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TurnOff.BorderSizePixel = 0
+TurnOff.Position = UDim2.new(0.126394048, 0, 0.75, 0)
+TurnOff.Size = UDim2.new(0, 200, 0, 25)
+TurnOff.Font = Enum.Font.SourceSans
+TurnOff.Text = "Press this to turn off"
+TurnOff.TextColor3 = Color3.fromRGB(0, 0, 0)
+TurnOff.TextSize = 14.000
+
+-- Scripts:
+
+local function HMJG_fake_script() -- Main.LocalScript 
+    local script = Instance.new('LocalScript', Main)
+
+    local userInput = game:GetService('UserInputService')
+    
+    userInput.InputBegan:Connect(function(key, typing)
+        if typing then return end
+    
+        if key.KeyCode == Enum.KeyCode.K then
+            print("the player pressed k")
+            if script.Parent.Enabled then
+                script.Parent.Enabled = false
+            elseif script.Parent.Enabled == false then
+                script.Parent.Enabled = true
+            end
+        end
+    end)
+end
+coroutine.wrap(HMJG_fake_script)()
+local function SJROYEI_fake_script() -- Frame.Script 
+    local script = Instance.new('Script', Frame)
+
+    script.Parent.TextButton.MouseButton1Click:Connect(function()
+        local plr = script.Parent.Parent.Parent.Parent
+    
+        for i, v in pairs(workspace:GetChildren()) do
+            if v.Name == plr.Name then
+                print(plr)
+                
+                local range
+                
+                local catchLeft = v:WaitForChild('CatchLeft')
+                local catchRight = v:WaitForChild('CatchRight')
+                
+                range = script.Parent.TextBox.Text
+                
+                
+                catchLeft.Size = Vector3.new(range,range,range)
+                catchRight.Size = Vector3.new(range,range,range)
+            end
+        end
+    end)
+    
+    script.Parent.TurnOff.MouseButton1Click:Connect(function()
+        local plr = script.Parent.Parent.Parent.Parent
+    
+        for i, v in pairs(workspace:GetChildren()) do
+            if v.Name == plr.Name then
+                print(plr)
+    
+                local range
+    
+                local catchLeft = v:WaitForChild('CatchLeft')
+                local catchRight = v:WaitForChild('CatchRight')
+    
+                
+                print(range)
+    
+    
+                catchLeft.Size = Vector3.new(1.4, 1.65, 1.4)
+                catchRight.Size = Vector3.new(1.4, 1.65, 1.4)
+            end
+        end
+    end)
+end
+coroutine.wrap(SJROYEI_fake_script)()
